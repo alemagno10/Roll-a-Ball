@@ -25,7 +25,7 @@ public class playerController : MonoBehaviour {
 
     // Update is called once per frame
     void Update(){
-        
+        SetCountText();
     }
 
     void OnMove(InputValue value){
@@ -37,7 +37,6 @@ public class playerController : MonoBehaviour {
     void OnTriggerEnter(Collider other){
         if(other.gameObject.CompareTag("PickUp")){
             count = count + 1;
-            SetCountText();
             other.gameObject.SetActive(false);
         }
 
