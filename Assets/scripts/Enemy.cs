@@ -1,15 +1,19 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour {
       
-    public Transform jogador;
+    public Transform player;
     public float velocidade = 5f; 
+    
+    private NavMeshAgent agent;
+
+    void Start(){
+        agent = GetComponent<NavMeshAgent>();
+    }
 
     void Update(){
-        Vector3 posicaoJogador = jogador.position;
-        Vector3 novaPosicao = Vector3.MoveTowards(transform.position, posicaoJogador, velocidade * Time.deltaTime);
-        transform.position = new Vector3(novaPosicao.x, transform.position.y, novaPosicao.z);
-        transform.LookAt(new Vector3(jogador.position.x, transform.position.y, jogador.position.z));
+        agent.destination = player.position;
     }
 
     void OnCollisionEnter(Collision collision){
