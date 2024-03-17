@@ -15,15 +15,12 @@ public class playerController : MonoBehaviour {
     public float speed = 0;
     public float count = 0;
 
-    // Start is called before the first frame update
     void Start(){
         rb = GetComponent<Rigidbody>();
-        count = 0;
         SetCountText();
         winTextObject.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update(){
         SetCountText();
     }
