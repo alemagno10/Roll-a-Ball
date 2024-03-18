@@ -4,7 +4,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour {
       
     public Transform player;
-    public float velocidade = 5f; 
+    public float velocidade = 6f; 
     
     private NavMeshAgent agent;
 
@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour {
 
     void Update(){
         agent.destination = player.position;
+        agent.speed = velocidade;
     }
 
     public void Freeze(){

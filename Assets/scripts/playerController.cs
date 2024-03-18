@@ -13,7 +13,7 @@ public class playerController : MonoBehaviour {
     private float movementY;
     private float slowdownFactor = 10f;
     public bool stop = false;
-    public float speed = 0;
+    public float speed = 20f;
 
     void Start(){
         hud = FindObjectOfType<Hud>();
