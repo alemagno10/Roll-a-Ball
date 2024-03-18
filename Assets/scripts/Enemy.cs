@@ -5,11 +5,19 @@ public class Enemy : MonoBehaviour {
       
     public Transform player;
     public float velocidade = 6f; 
+    public static Enemy[] enemies;
     
     private NavMeshAgent agent;
 
     void Start(){
         agent = GetComponent<NavMeshAgent>();
+        enemies = FindObjectsOfType<Enemy>();
+    }
+
+    public static void FreezeAll(){
+        foreach(Enemy enemy in enemies){
+            enemy.Freeze();
+        }
     }
 
     void Update(){

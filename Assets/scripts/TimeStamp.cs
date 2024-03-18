@@ -2,14 +2,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class TimeStamp : MonoBehaviour
-{
+public class TimeStamp : MonoBehaviour {
     public TextMeshProUGUI timeText;
+    private Hud hud;
+    private float playTime = 90f;
     private float gameTime;
     private bool pause = false;
 
+    void Start(){
+        gameTime = playTime;
+        hud = FindObjectOfType<Hud>();
+    }
+
     void Update(){
-        gameTime += Time.deltaTime;
+        gameTime -= Time.deltaTime;
+        checkTime();
         UpdateTime();
     }
 
@@ -24,5 +31,12 @@ public class TimeStamp : MonoBehaviour
 
     public void PauseTime(){
         pause = true;
+    }
+
+    private void checkTime(){
+        if(gameTime <= 0 && !pause){
+            pause = true;
+            hud.DeathHandler();
+        }
     }
 }

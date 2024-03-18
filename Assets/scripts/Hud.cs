@@ -32,13 +32,11 @@ public class Hud : MonoBehaviour {
     }
 
     void checkWin(){
-        if (count == 3 && !justWon){
+        if (count == 20 && !justWon){
             justWon = true;
             timeStamp.PauseTime();
             player.Freeze();
-            foreach(Enemy enemy in enemies){
-                enemy.Freeze();
-            }
+            Enemy.FreezeAll();
             winText.gameObject.SetActive(true);
             audioManager.PlayWin();
         }
@@ -75,5 +73,9 @@ public class Hud : MonoBehaviour {
         reset = true;
         audioManager.PlayDeath();
         timeStamp.PauseTime();
+        if(player != null){
+            player.Freeze();
+            Enemy.FreezeAll();
+        }
     }
 }
