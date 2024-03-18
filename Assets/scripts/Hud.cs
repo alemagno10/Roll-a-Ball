@@ -30,7 +30,7 @@ public class Hud : MonoBehaviour {
     }
 
     void checkWin(){
-        if (count == 1 && !justWon){
+        if (count == 16 && !justWon){
             justWon = true;
             timeStamp.PauseTime();
             player.Freeze();
