@@ -6,6 +6,7 @@ public class Hud : MonoBehaviour {
     public TextMeshProUGUI countText;
     public TextMeshProUGUI deathText;
     public TextMeshProUGUI winText;
+    public TextMeshProUGUI options;
     private playerController player; 
     private TimeStamp timeStamp;
     private AudioManager audioManager;
@@ -18,6 +19,7 @@ public class Hud : MonoBehaviour {
     void Start(){
         winText.gameObject.SetActive(false);
         deathText.gameObject.SetActive(false);
+        options.gameObject.SetActive(false);
         player = FindObjectOfType<playerController>();
         enemies = FindObjectsOfType<Enemy>();
         timeStamp = FindObjectOfType<TimeStamp>();
@@ -28,35 +30,18 @@ public class Hud : MonoBehaviour {
     void Update(){
         SetCountText();
         checkWin();
-        checkReset();
+        checkRedirect();
     }
 
     void checkWin(){
-        if (count == 20 && !justWon){
+        if (count == 2 && !justWon){
             justWon = true;
             timeStamp.PauseTime();
             player.Freeze();
             Enemy.FreezeAll();
             winText.gameObject.SetActive(true);
+            options.gameObject.SetActive(true);
             audioManager.PlayWin();
-        }
-
-        if(justWon){
-            if(Input.GetKeyDown(KeyCode.Space)){
-                SceneManager.LoadScene("Menu");
-            } else if (Input.GetKeyDown(KeyCode.R)){
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
-        }
-    }
-
-    void checkReset(){
-        if(reset){
-            deathText.gameObject.SetActive(true);
-        }
-
-        if(reset && Input.GetKeyDown(KeyCode.R)){
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
@@ -70,12 +55,30 @@ public class Hud : MonoBehaviour {
     }
 
     public void DeathHandler(){
+        deathText.gameObject.SetActive(true);
+        options.gameObject.SetActive(true);
         reset = true;
         audioManager.PlayDeath();
         timeStamp.PauseTime();
+
         if(player != null){
             player.Freeze();
             Enemy.FreezeAll();
+        }
+    }
+
+    private void checkRedirect(){
+        Redirect(reset);
+        Redirect(justWon);
+    }
+
+    private void Redirect(bool flag){
+        if(flag){
+            if(Input.GetKeyDown(KeyCode.Space)){
+                SceneManager.LoadScene("Menu");
+            } else if (Input.GetKeyDown(KeyCode.R)){
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
     }
 }

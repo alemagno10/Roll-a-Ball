@@ -18,8 +18,4 @@ public class Menu : MonoBehaviour {
     public void PlayClick(){
         menuAudioManager.playClick();
     }
-
-    public void Quit(){
-        Application.Quit();
-    }
 }
