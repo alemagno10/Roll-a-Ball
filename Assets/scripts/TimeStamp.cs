@@ -7,13 +7,12 @@ public class TimeStamp : MonoBehaviour
     public TextMeshProUGUI timeText;
     private float gameTime;
 
-    void Update() {
+    void Update(){
         gameTime += Time.deltaTime;
         UpdateTime();
     }
 
-    public void UpdateTime()
-    {
+    public void UpdateTime(){
         int minutes = Mathf.FloorToInt(gameTime / 60);
         int seconds = Mathf.FloorToInt(gameTime % 60);
         int milliseconds = Mathf.FloorToInt((gameTime * 100) % 100);

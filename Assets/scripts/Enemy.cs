@@ -15,11 +15,4 @@ public class Enemy : MonoBehaviour {
     void Update(){
         agent.destination = player.position;
     }
-
-    void OnCollisionEnter(Collision collision){
-        if(collision.gameObject.CompareTag("Player")){
-            collision.gameObject.SetActive(false);
-            Debug.Log("Colidiu com o inimigo!");
-        }
-    } 
 }
