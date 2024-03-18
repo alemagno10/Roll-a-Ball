@@ -5,11 +5,16 @@ using UnityEngine;
 public class MapLimit : MonoBehaviour {
 
     public Transform player;
+    private Hud hud;
+
+    void Start(){
+        hud = FindObjectOfType<Hud>();
+    }
 
     void OnTriggerExit(Collider other){
         if(other.gameObject.CompareTag("Player")){
+            hud.DeathHandler();
             other.gameObject.SetActive(false);
-            Debug.Log("Fora dos limites do mapa!");
         }
     }
 }
