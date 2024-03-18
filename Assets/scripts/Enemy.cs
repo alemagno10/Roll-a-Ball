@@ -15,4 +15,9 @@ public class Enemy : MonoBehaviour {
     void Update(){
         agent.destination = player.position;
     }
+
+    public void Freeze(){
+        agent.velocity = Vector3.zero;
+        agent.isStopped = true;
+    }
 }

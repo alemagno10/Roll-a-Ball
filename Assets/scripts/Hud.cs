@@ -3,18 +3,23 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Hud : MonoBehaviour {
-    public  player;
     public TextMeshProUGUI countText;
     public TextMeshProUGUI deathText;
     public TextMeshProUGUI winText;
-    public TimeStamp timeStamp;
+    private playerController player; 
+    private TimeStamp timeStamp;
+    private Enemy[] enemies;
 
     private float count = 0;
     private bool reset = false;
+    private bool justWon = false;
 
     void Start(){
         winText.gameObject.SetActive(false);
         deathText.gameObject.SetActive(false);
+        player = FindObjectOfType<playerController>();
+        enemies = FindObjectsOfType<Enemy>();
+        timeStamp = FindObjectOfType<TimeStamp>();
         SetCountText();
     }
 
@@ -25,10 +30,22 @@ public class Hud : MonoBehaviour {
     }
 
     void checkWin(){
-        if (count == 16){
+        if (count == 1 && !justWon){
+            justWon = true;
             timeStamp.PauseTime();
             player.Freeze();
+            foreach(Enemy enemy in enemies){
+                enemy.Freeze();
+            }
             winText.gameObject.SetActive(true);
+        }
+
+        if(justWon){
+            if(Input.GetKeyDown(KeyCode.Space)){
+                SceneManager.LoadScene("Menu");
+            } else if (Input.GetKeyDown(KeyCode.R)){
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
     }
 
