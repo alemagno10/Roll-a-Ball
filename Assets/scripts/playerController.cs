@@ -42,7 +42,7 @@ public class playerController : MonoBehaviour {
 
     void OnTriggerEnter(Collider other){
         if(other.gameObject.CompareTag("PickUp")){
-            hud.IncreaseCount();
+            hud.NewPickUp();
             other.gameObject.SetActive(false);
         }
     }

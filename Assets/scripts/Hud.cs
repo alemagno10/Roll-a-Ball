@@ -8,6 +8,7 @@ public class Hud : MonoBehaviour {
     public TextMeshProUGUI winText;
     private playerController player; 
     private TimeStamp timeStamp;
+    private AudioManager audioManager;
     private Enemy[] enemies;
 
     private float count = 0;
@@ -20,6 +21,7 @@ public class Hud : MonoBehaviour {
         player = FindObjectOfType<playerController>();
         enemies = FindObjectsOfType<Enemy>();
         timeStamp = FindObjectOfType<TimeStamp>();
+        audioManager = FindObjectOfType<AudioManager>();
         SetCountText();
     }
 
@@ -30,7 +32,7 @@ public class Hud : MonoBehaviour {
     }
 
     void checkWin(){
-        if (count == 16 && !justWon){
+        if (count == 3 && !justWon){
             justWon = true;
             timeStamp.PauseTime();
             player.Freeze();
@@ -38,6 +40,7 @@ public class Hud : MonoBehaviour {
                 enemy.Freeze();
             }
             winText.gameObject.SetActive(true);
+            audioManager.PlayWin();
         }
 
         if(justWon){
@@ -63,12 +66,14 @@ public class Hud : MonoBehaviour {
        countText.text =  "Count: " + count.ToString();
     }
 
-    public void IncreaseCount(){
+    public void NewPickUp(){
         count++;
+        audioManager.PlayNewPickUp();
     }
 
     public void DeathHandler(){
         reset = true;
+        audioManager.PlayDeath();
         timeStamp.PauseTime();
     }
 }
